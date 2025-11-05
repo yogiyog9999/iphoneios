@@ -1,0 +1,48 @@
+<ion-content class="myreview-page">
+  <app-global-header></app-global-header>
+
+  <div class="myreview-section main-container">
+    <!-- Dashboard Header -->
+    <div class="myreview-header">
+      <h1>My Review</h1>
+       </div>
+    
+
+    <!-- Latest Reviews -->
+    <div class="block-card latest_review">
+    
+      <div *ngIf="isLoading; else reviewsContent" class="flex-center">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+      <ng-template #reviewsContent>
+       <div 
+  class="review-card" 
+  *ngFor="let review of reviewedHomeowners" 
+  (click)="openReviewDetails(review.reviewid)"
+>
+  <h5>{{ review.name }}</h5>
+  <p class="project-type"><strong>Service Type: {{ review.projectType }}</strong></p>
+  <p>Latest review posted on {{ review.projectDate }}</p>
+  
+  <div class="stars">
+    Overall Rating 
+    <ion-icon *ngFor="let s of [1,2,3,4,5]" 
+              [name]="s <= review.avgScore ? 'star' : 
+                     (s - 0.5 <= review.avgScore ? 'star-half' : 'star-outline')"
+              color="warning">
+    </ion-icon>
+    <span> {{ review.avgScore }}/5</span>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="actions">
+    <ion-button size="small" fill="outline" (click)="editReview(review, $event)">Edit</ion-button>
+    <ion-button size="small" color="danger" fill="outline" (click)="deleteReview(review, $event)">Delete</ion-button>
+  </div>
+</div>
+
+
+      </ng-template>
+    </div>
+  </div>
+</ion-content>
