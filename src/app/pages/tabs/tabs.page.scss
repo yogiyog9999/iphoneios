@@ -1,30 +1,29 @@
-/* ================================
-   🔧 CLEAN FINAL CSS FOR iOS FIXES
-   ================================ */
+/* ====================================
+   FINAL iOS + HEADER + TAB FIX (2025)
+   ==================================== */
 
-/* ------------------------------
-   🟠 GLOBAL SAFE AREA FIXES
---------------------------------*/
+/* Global Safe Area Fix */
 :root {
   --ion-safe-area-top: 0px !important;
   --ion-safe-area-bottom: 0px !important;
 }
 
 /* ------------------------------
-   🧭 HEADER FIX (REMOVE EXTRA GAP)
+   🧭 HEADER FIX
 --------------------------------*/
 ion-header, ion-toolbar {
   padding-top: 0 !important;
-  background: #241F23 !important;
+  background: #241F23 !important; /* Dark header background */
   color: #fff !important;
   border: none !important;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: space-between; /* Space between left & right items */
+  padding: 0 12px !important; /* Add side space */
+  height: 56px;
 }
 
-/* Centered "D List" title */
+/* Centered Title - “D List” */
 ion-title {
   position: absolute;
   left: 50%;
@@ -34,29 +33,34 @@ ion-title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  pointer-events: none; /* Prevent accidental taps */
 }
 
-/* "D" (theme color) + "List" (white) */
+/* “D” orange and “List” white */
 ion-title span:first-child {
   color: #f15a29; /* theme orange */
 }
 ion-title span:last-child {
-  color: #fff; /* white */
+  color: #fff;
 }
 
-/* Optional: back button & icons color */
-ion-back-button::part(text) {
+/* Header icons (left/right) */
+ion-buttons ion-icon, ion-buttons ion-avatar, ion-buttons ion-img {
   color: #fff !important;
+  font-size: 22px;
 }
-ion-toolbar img, ion-toolbar svg {
-  filter: brightness(0) invert(1);
+
+/* Optional right avatar spacing */
+ion-buttons[end] {
+  margin-right: 5px;
 }
 
 /* ------------------------------
-   📱 TAB BAR FIX (REMOVE BOTTOM GAP)
+   📱 TAB BAR FIX
 --------------------------------*/
 ion-tab-bar {
-  background: #f15a29 !important;
+  background: #f15a29 !important; /* theme color */
   border: none !important;
   height: 56px !important;
   padding-bottom: 0 !important;
@@ -64,102 +68,55 @@ ion-tab-bar {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15); /* subtle shadow */
 }
 
-/* Disable pseudo-element causing extra safe-area padding */
+/* Remove extra pseudo-element space */
 ion-tab-bar::after {
   display: none !important;
 }
 
-/* Tab button base style */
+/* Tab Buttons */
 ion-tab-button {
   --color: #ffffff;
-  --color-selected: #ffde59; /* yellow highlight */
-  --ripple-color: rgba(255,255,255,0.12);
+  --color-selected: #ffde59; /* yellow */
   font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  padding: 0;
   height: 100%;
+  padding: 0;
 }
 
-/* Tab icons */
+/* Tab Icons */
 ion-tab-button ion-icon {
   font-size: 22px;
-  color: inherit;
   margin-bottom: 2px;
 }
 
-/* Tab labels */
+/* Labels */
 ion-tab-button ion-label {
   font-size: 11px;
   color: inherit;
-  line-height: 12px;
   margin-top: 0;
 }
 
-/* Active tab */
+/* Selected Tab */
 ion-tab-button.tab-selected {
   --color: #ffde59;
   font-weight: 600;
 }
 
-/* Responsive (optional) */
+/* Hide labels on narrow devices */
 @media (max-width: 360px) {
   ion-tab-button ion-label {
     display: none;
   }
 }
 
-/* ------------------------------
-   🧾 PAGE CONTENT
---------------------------------*/
+/* Page Content */
 ion-content {
   --padding-top: 0 !important;
   --padding-bottom: 0 !important;
-}
-
-/* ------------------------------
-   🧡 CUSTOM TAB BAR STYLING
---------------------------------*/
-.custom-tab-bar {
-  border-radius: 0;
-}
-
-/* Bottom nav (if using custom grid style tabs) */
-.bottom-nav {
-  ion-toolbar {
-    --background: #f15a29;
-    padding: 5px 0;
-  }
-
-  ion-col {
-    color: #fff;
-    cursor: pointer;
-
-    ion-icon {
-      font-size: 22px;
-      color: #fff;
-    }
-
-    div {
-      font-size: 12px;
-      margin-top: 3px;
-      color: #fff;
-    }
-  }
-
-  /* Active Tab */
-  .active {
-    ion-icon {
-      color: #ffde59;
-    }
-    div {
-      color: #ffde59;
-      font-weight: 600;
-    }
-  }
 }
