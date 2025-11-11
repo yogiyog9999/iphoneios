@@ -284,20 +284,73 @@ ion-tab-button {
   --color-selected: #4267B2; 
   --color: #888; 
 }
-/* === FIX: Remove bottom safe area white gap on iPhone 15 === */
+/* === FIX: iPhone tab bar bottom spacing and icon alignment === */
 ion-tab-bar {
-  padding-bottom: calc(env(safe-area-inset-bottom) - 8px) !important;
+  background-color: #f15a29 !important;
+  border: none !important;
   height: calc(56px + env(safe-area-inset-bottom)) !important;
-  background-color: #f15a29;
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-ion-tab-bar::after {
-  display: none !important;
-}
-
-/* Ensure icons stay centered vertically */
+/* Make sure tab icons and labels are vertically centered */
 ion-tab-button {
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: env(safe-area-inset-bottom, 0);
+  height: 100%;
+  padding: 0;
+}
+
+/* Tab icon size */
+ion-tab-button ion-icon {
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+/* Active and inactive colors */
+ion-tab-button {
+  --color: #fff;
+  --color-selected: #ffde59; /* yellow highlight */
+}
+ion-header, ion-toolbar {
+  padding-top: env(safe-area-inset-top);
+  --min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #241F23;
+  color: #fff;
+  border: none !important;
+}
+/* === Header Icon & Text Color Fix === */
+ion-header, ion-toolbar {
+  background: #241F23 !important;
+  color: #fff !important;
+  --ion-color-base: #241F23;
+}
+
+/* Make all header icons white */
+ion-toolbar ion-icon,
+ion-buttons ion-icon,
+ion-back-button::part(icon),
+ion-menu-button::part(icon) {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* Header title in white */
+ion-title {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* Optional: make back button text white */
+ion-back-button::part(text) {
+  color: #fff !important;
+}
+ion-toolbar img, ion-toolbar svg {
+  filter: brightness(0) invert(1); /* makes dark icons white */
 }
