@@ -2,56 +2,54 @@ ion-tab-bar.custom-tab-bar {
   --background: #f15a29;
   --color: #fff;
   --color-selected: #ffde59;
-  position: relative;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(env(safe-area-inset-bottom) / 2);
+  height: calc(56px + env(safe-area-inset-bottom));
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-/* Fix white gap under tab bar */
-ion-tab-bar::after {
+ion-tab-bar.custom-tab-bar::after {
   content: '';
   position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
   height: env(safe-area-inset-bottom);
-  background: var(--background); /* ✅ matches tab bar color */
+  background: #f15a29;
 }
 
-/* Tab button base */
 ion-tab-button {
   --color: #ffffff;
-  --ripple-color: rgba(255,255,255,0.12);
+  --ripple-color: rgba(255, 255, 255, 0.12);
   font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  height: 100%;
+  padding: 0;
 }
 
-/* Icon size */
 ion-tab-button ion-icon {
   font-size: 22px;
   color: inherit;
 }
 
-/* Label style */
 ion-tab-button ion-label {
   font-size: 11px;
   line-height: 12px;
   color: inherit;
-  margin-top: 0;
+  margin-top: 2px;
 }
 
-/* Active tab */
 ion-tab-button.tab-selected {
   --color: #ffde59;
   font-weight: 600;
 }
 
-/* Explicit icon color control */
 ion-tab-button:not(.tab-selected) ion-icon {
   color: #ffffff;
 }
@@ -59,18 +57,8 @@ ion-tab-button.tab-selected ion-icon {
   color: #ffde59;
 }
 
-/* Responsive tweak */
 @media (max-width: 360px) {
   ion-tab-button ion-label {
     display: none;
   }
-}
-
-ion-content {
-  padding-bottom: calc(env(safe-area-inset-bottom) + 60px) !important;
-}
-
-/* General safe-area normalization for iPhone models */
-:root {
-  --ion-safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
