@@ -41,6 +41,11 @@ export class AppComponent {
   async initializeApp() {
     await this.platform.ready();
     await this.showToast('✅ Platform ready');
+    if (this.platform.is('ios')) {
+  await StatusBar.setOverlaysWebView({ overlay: false });
+} else {
+  await StatusBar.setOverlaysWebView({ overlay: true });
+}
 
     try {
       console.log('Initializing Push Service...');
