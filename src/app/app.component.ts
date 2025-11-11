@@ -6,21 +6,6 @@ import { Platform, NavController } from '@ionic/angular';
 import { Device } from '@capacitor/device';
 import { App as CapacitorApp } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
-import { FirebaseMessaging } from '@capacitor-firebase/messaging';
-import { initializeApp } from 'firebase/app';  // ✅ Add this
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDI-Y8SUlPpj0495_preN5h4P4zZgaL1qU",
-  authDomain: "dlist-app.firebaseapp.com",
-  projectId: "dlist-app",
-  storageBucket: "dlist-app.firebasestorage.app",
-  messagingSenderId: "702713496290",
-  appId: "1:702713496290:web:e94eb6ad12a0c07cec14bb",
-  measurementId: "G-555MDXLZSL"
-};
-
-// ✅ Initialize Firebase
-initializeApp(firebaseConfig);
 
 @Component({
   standalone: false,
@@ -45,24 +30,20 @@ export class AppComponent {
     await this.platform.ready();
 
     try {
-      if (Capacitor.getPlatform() === 'ios') {
-        console.log('Initializing Firebase Messaging for iOS...');
-        await this.initFirebaseMessagingIOS();
-      } else {
-        console.log('Initializing Firebase Messaging for Android...');
-      }
+      console.log('Initializing Push Service...');
+      this.pushService.init(); // 🔔 Use your custom push service
     } catch (err) {
-      console.error('❌ Firebase init error:', err);
+      console.error('❌ Push init error:', err);
     }
 
-    this.pushService.init();
-
+    // ✅ Configure Status Bar
     await StatusBar.setOverlaysWebView({ overlay: true });
     await StatusBar.setStyle({ style: Style.Light });
     await StatusBar.setBackgroundColor({ color: '#4267B2' });
 
     document.documentElement.style.setProperty('--status-bar-height', 'env(safe-area-inset-top)');
 
+    // ✅ Check user session via Supabase
     const { data: { user }, error } = await supabase.auth.getUser();
 
     if (error) {
@@ -78,26 +59,7 @@ export class AppComponent {
     }
   }
 
-  private async initFirebaseMessagingIOS() {
-    try {
-      const perm = await FirebaseMessaging.requestPermissions();
-      console.log('📲 iOS Push permission:', perm);
-
-      const token = await FirebaseMessaging.getToken();
-      console.log('✅ FCM Token (iOS):', token.token);
-
-      FirebaseMessaging.addListener('notificationReceived', (event) => {
-        console.log('📩 Notification received (iOS):', event.notification);
-      });
-
-      FirebaseMessaging.addListener('notificationActionPerformed', (event) => {
-        console.log('🟢 Notification tapped (iOS):', event.notification);
-      });
-    } catch (error) {
-      console.error('🔥 FirebaseMessaging iOS error:', error);
-    }
-  }
-
+  // ✅ Handle deep links (Supabase password recovery, etc.)
   handleDeepLinks() {
     CapacitorApp.addListener('appUrlOpen', (data: any) => {
       console.log('Deep link opened:', data.url);

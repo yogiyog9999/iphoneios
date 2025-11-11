@@ -1,0 +1,56 @@
+:root {
+  --ion-safe-area-top: env(safe-area-inset-top);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+}
+
+ion-tab-bar.custom-tab-bar {
+  --background: #f15a29;
+  --color: #fff;
+  --color-selected: #ffde59;
+  border: none !important;
+  margin: 0 !important;
+
+  /* 👇 critical part */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #f15a29;
+  z-index: 10;
+}
+
+ion-tab-button {
+  --color: #ffffff;
+  --ripple-color: rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  gap: 2px;
+  padding: 6px 0;
+}
+
+ion-tab-button ion-icon {
+  font-size: 22px;
+}
+
+ion-tab-button.tab-selected {
+  --color: #ffde59;
+  font-weight: 600;
+}
+
+ion-tab-button.tab-selected ion-icon {
+  color: #ffde59;
+}
+
+ion-tab-button:not(.tab-selected) ion-icon {
+  color: #ffffff;
+}
+
+@media (max-width: 360px) {
+  ion-tab-button ion-label {
+    display: none;
+  }
+}
