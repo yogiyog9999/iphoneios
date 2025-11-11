@@ -70,26 +70,37 @@ ion-tab-button.tab-selected ion-icon {
   }
 }
 
-/* ---- iPhone 15 bottom white-space fix ---- */
-ion-tab-bar {
-  background-color: #f15a29;                /* your color */
-  height: calc(56px + env(safe-area-inset-bottom, 0));
-  padding-bottom: calc(env(safe-area-inset-bottom, 0) / 2);
-  border-top: none !important;
+:root {
+  /* your desired safe-area color */
+  --safe-area-color: #ff0000; /* red */
 }
 
-/* keep icons visually centered */
-ion-tab-button {
-  align-items: center;
-  justify-content: center;
-  padding-bottom: env(safe-area-inset-bottom, 0);
+/* Top safe area (status bar / notch area) */
+ion-header::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background-color: var(--safe-area-color);
+  z-index: 9999;
 }
 
-/* optional: ensure whole screen fills vertically */
-html, body, ion-app {
-  height: 100%;
-  background-color: #fff;
+/* Bottom safe area (home indicator area) */
+ion-tab-bar::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-bottom);
+  background-color: var(--safe-area-color);
+  z-index: 9999;
 }
+--safe-area-color: var(--ion-color-primary);
+
+
 
 
 

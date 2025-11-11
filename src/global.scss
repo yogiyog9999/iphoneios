@@ -317,7 +317,6 @@ ion-tab-button {
 }
 ion-header, ion-toolbar {
   padding-top: env(safe-area-inset-top);
-  --min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -332,14 +331,6 @@ ion-header, ion-toolbar {
   --ion-color-base: #241F23;
 }
 
-/* Make all header icons white */
-ion-toolbar ion-icon,
-ion-buttons ion-icon,
-ion-back-button::part(icon),
-ion-menu-button::part(icon) {
-  color: #fff !important;
-  fill: #fff !important;
-}
 
 /* Header title in white */
 ion-title {
