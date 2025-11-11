@@ -41,11 +41,6 @@ export class AppComponent {
   async initializeApp() {
     await this.platform.ready();
     await this.showToast('✅ Platform ready');
-    if (this.platform.is('ios')) {
-  await StatusBar.setOverlaysWebView({ overlay: false });
-} else {
-  await StatusBar.setOverlaysWebView({ overlay: true });
-}
 
     try {
       console.log('Initializing Push Service...');
@@ -58,12 +53,15 @@ export class AppComponent {
 
     // ✅ Status bar setup
     try {
-      await StatusBar.setOverlaysWebView({ overlay: true });
-      await StatusBar.setStyle({ style: Style.Light });
-      await StatusBar.setBackgroundColor({ color: '#4267B2' });
-      document.documentElement.style.setProperty('--status-bar-height', 'env(safe-area-inset-top)');
-      await this.showToast('🎨 Safe area + status bar set');
-    } catch (e) {
+       // Allow the app to appear *below* the status bar (no white gap)
+    await StatusBar.setOverlaysWebView({ overlay: true });
+
+    // Use light icons on dark header background
+    await StatusBar.setStyle({ style: Style.Light });
+
+    // Set transparent background to blend with header color
+    await StatusBar.setBackgroundColor({ color: 'transparent' });
+	  } catch (e) {
       console.error('StatusBar error:', e);
       await this.showToast('⚠️ StatusBar error');
     }

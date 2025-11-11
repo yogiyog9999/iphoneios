@@ -231,3 +231,11 @@ ion-item-divider {
   padding:20px 30px;
   background: #fff;
 }
+:root {
+  --ion-safe-area-top: 0px !important;
+}
+ion-header,
+ion-toolbar {
+  padding-top: var(--ion-safe-area-top) !important;
+  background-color: #241F23 !important; /* your theme color */
+}
