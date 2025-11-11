@@ -62,3 +62,20 @@ ion-tab-button.tab-selected ion-icon {
     display: none;
   }
 }
+/* === FIX: Remove bottom safe area white gap on iPhone 15 === */
+ion-tab-bar {
+  padding-bottom: calc(env(safe-area-inset-bottom) - 8px) !important;
+  height: calc(56px + env(safe-area-inset-bottom)) !important;
+  background-color: #f15a29;
+}
+
+ion-tab-bar::after {
+  display: none !important;
+}
+
+/* Ensure icons stay centered vertically */
+ion-tab-button {
+  align-items: center;
+  justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
